@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-  entry: path.resolve(__dirname, './client/components/app.js'),
+  entry: path.resolve(__dirname, './client/components/App.js'),
   module: {
     rules: [
       {
