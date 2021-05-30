@@ -6,6 +6,7 @@ import {
   Route
 } from 'react-router-dom';
 import { Modal, Button } from 'react-bootstrap';
+import $ from 'jquery';
 
 import NavBar from './NavBar';
 import GroceryList from './GroceryList';
@@ -18,27 +19,55 @@ class App extends React.Component {
     this.state = {
       groceries: [{name: 'apples', quantity: 5}, {name: 'oranges', quantity: 3}],
       showNewRecipeForm: false,
-      date: new Date(),
-      dateCarouselIndex: 0
+      date: ''
     }
     this.newRecipeModal = this.newRecipeModal.bind(this);
-    this.handleDateCarouselIndexShift = this.handleDateCarouselIndexShift.bind(this);
+    this.shiftWeekForward = this.shiftWeekForward.bind(this);
+    this.shiftWeekBackwards = this.shiftWeekBackwards.bind(this);
+  }
+
+  componentDidMount() {
+    var currentDay = new Date();
+    var sundayOfCurrentWeek = new Date(currentDay);
+    sundayOfCurrentWeek.setDate(currentDay.getDate() - currentDay.getDay());
+    this.setState({ date: sundayOfCurrentWeek });
+    // d = new Date(d);
+    // var day = d.getDay(),
+    //     diff = d.getDate() - day + (day == 0 ? -6:1); // adjust when day is sunday
+    // return new Date(d.setDate(diff));
   }
 
   newRecipeModal() {
     this.setState({ showNewRecipeForm: !this.state.showNewRecipeForm });
   }
 
-  handleDateCarouselIndexShift = (selectedIndex, e) => {
-    console.log('hit me', selectedIndex);
-    this.setState({ dateCarouselIndex: selectedIndex });
-  };
+  shiftFunc(dateChange) {
+    var _this = this;
+    $('.current-week').animate({
+      'opacity': 0
+    }, 200, function() {
+      var newDate = new Date(_this.state.date);
+      newDate.setDate(_this.state.date.getDate() + dateChange);
+      _this.setState({ date: newDate });
+      $('.current-week').animate({
+        'opacity': 1
+      }, 200);
+    });
+  }
+
+  shiftWeekForward() {
+    this.shiftFunc(7);
+  }
+
+  shiftWeekBackwards() {
+    this.shiftFunc(-7);
+  }
 
   render() {
     return (
       <Router>
         <NavBar />
-        <Calendar date={this.state.date} handleDateCarouselIndexShift={this.handleDateCarouselIndexShift} dateCarouselIndex={this.state.dateCarouselIndex}/>
+        <Calendar date={this.state.date} shiftWeekForward={this.shiftWeekForward} shiftWeekBackwards={this.shiftWeekBackwards}/>
 
         <Button variant="primary" onClick={this.newRecipeModal}>
           Add New Recipe

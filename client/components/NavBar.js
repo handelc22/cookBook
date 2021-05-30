@@ -8,10 +8,10 @@ const NavBar = () => {
         CookBook
       </Link>
       <Link to='/' style={{color: 'white', position: 'fixed', right: 0}}>
-        <i className="fas fa-home"></i>
+        home
       </Link>
-      <Link to='/groceries' style={{color: 'white', position: 'fixed', right: '20px'}}>
-        <i className="fas fa-shopping-basket"></i>
+      <Link to='/groceries' style={{color: 'white', position: 'fixed', right: '60px'}}>
+        groceries
       </Link>
 
       {/* <ul className="navbar-nav me-auto mb-2 mb-lg-0">
