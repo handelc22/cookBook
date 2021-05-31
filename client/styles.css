@@ -1,3 +1,7 @@
+body, body * {
+  box-sizing: border-box;
+}
+
 .calendar-day {
   background-color: rgb(15, 35, 65);
   color: #fff;
@@ -10,4 +14,41 @@
 
 .card-body {
   padding: 0;
+}
+
+.calendar-row {
+  display: flex;
+  align-items: 'center';
+  justify-content: 'center';
+  margin-right: 5px;
+}
+
+.time, .calendar-block {
+  font-size: 10px;
+  display: inline-block;
+  padding-right: 5px;
+  height: 30px;
+  position: relative;
+}
+
+.calendar-block {
+  border-right: 2px solid rgb(172, 172, 172);
+  border-bottom: 2px solid rgb(172, 172, 172);
+}
+
+.time {
+  width: 40px;
+  text-align: right;
+  top: -8px;
+}
+
+.calendar-block.first {
+  border-top: 2px solid rgb(172, 172, 172);
+}
+
+.calendar-block {
+  border-left: none;
+  border-top: none;
+  width: 80%;
+  min-width: 30px;
 }
